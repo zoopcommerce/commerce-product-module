@@ -2,7 +2,7 @@
 
 namespace Zoop\Product\DataModel;
 
-use Zoop\Common\DataModel\Image;
+use Zoop\Common\File\DataModel\Image;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -14,59 +14,59 @@ class ImageSet
 {
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $raw;
 
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $extraLarge;
 
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $large;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $medium;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $small;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $thumbnail;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $adminFeatureSmall;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $adminThumbnailSmall;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $adminFeatureLarge;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
      */
     protected $adminThumbnailLarge;
 

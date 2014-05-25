@@ -4,7 +4,7 @@ namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Zoop\Category\DataModel\Category;
-use Zoop\Common\DataModel\Image;
+use Zoop\Common\File\DataModel\Image;
 use Zoop\Common\DataModel\Url;
 use Zoop\Common\DataModel\CustomHtml;
 use Zoop\Product\DataModel\ImageSet;
