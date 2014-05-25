@@ -1,15 +1,15 @@
 <?php
 
-return array(
+return [
     'zoop' => [
         'shard' => [
             'manifest' => [
                 'commerce' => [
-                    'documents' => [
+                    'models' => [
                         'Zoop\Product\DataModel' => __DIR__ . '/../src/Zoop/Product/DataModel'
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ],
     ],
-);
+];
