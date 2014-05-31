@@ -2,19 +2,21 @@
 
 namespace Zoop\Product\DataModel;
 
-use Zoop\Common\DataModel\Country;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\EmbeddedDocument
+ * @Shard\AccessControl({
+ *     @Shard\Permission\Basic(roles="*", allow="*")
+ * })
  */
 class ShippingRate
 {
     /**
      *
-     * @ODM\ReferenceOne(targetDocument="Zoop\Common\DataModel\Country", simple="true")
+     * @ODM\String
      * @Shard\Serializer\Eager
      */
     protected $country;

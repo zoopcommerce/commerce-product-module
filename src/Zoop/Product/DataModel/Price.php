@@ -9,8 +9,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="read"),
- *     @Shard\Permission\Basic(roles="store-manager", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
 class Price

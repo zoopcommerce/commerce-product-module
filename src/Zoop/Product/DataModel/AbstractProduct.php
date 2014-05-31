@@ -23,16 +23,12 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  * @ODM\InheritanceType("SINGLE_COLLECTION")
  * @ODM\DiscriminatorField(fieldName="type")
  * @ODM\DiscriminatorMap({
- *     "single"         = "SingleProduct",
- *     "bundle"         = "Bundle"
+ *     "SingleProduct"  = "SingleProduct",
+ *     "Bundle"         = "Bundle"
  * })
  * @Shard\Serializer\Discriminator
  * @Shard\AccessControl({
- *     @Shard\Permission\State(roles="*", states="*", allow="read"),
- *     @Shard\Permission\State(roles="*", states="inactive", deny="read"),
- *     @Shard\Permission\State(roles="store-manager", states="*", allow="*", deny="create"),
- *     @Shard\Permission\State(roles="store-manager", states="inactive", allow="create"),
- *     @Shard\Permission\Transition(roles="store-manager", allow="*->*")
+ *     @Shard\Permission\State(roles="*", allow="*")
  * })
  */
 abstract class AbstractProduct
@@ -145,7 +141,7 @@ abstract class AbstractProduct
      *     "on-sale"
      * })
      */
-    protected $state;
+    protected $state = 'active';
 
     /**
      *

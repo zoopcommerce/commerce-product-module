@@ -13,6 +13,9 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\Document
+ * @Shard\AccessControl({
+ *     @Shard\Permission\State(roles="*", allow="*")
+ * })
  */
 class SingleProduct extends AbstractProduct
 {

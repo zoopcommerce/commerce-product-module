@@ -10,6 +10,9 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
  * @ODM\Document
+ * @Shard\AccessControl({
+ *     @Shard\Permission\Basic(roles="*", allow="*")
+ * })
  */
 class CustomAttributeSet extends AbstractAttributeSet
 {
