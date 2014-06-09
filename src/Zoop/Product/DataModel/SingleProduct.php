@@ -98,7 +98,7 @@ class SingleProduct extends AbstractProduct implements ProductInterface
 
     /**
      *
-     * @return type
+     * @return ArrayCollection
      */
     public function getOptions()
     {
@@ -130,9 +130,10 @@ class SingleProduct extends AbstractProduct implements ProductInterface
     {
         return $this->attributes;
     }
-/**
- * @param ArrayCollection $attributes
- */
+
+    /**
+     * @param ArrayCollection $attributes
+     */
     public function setAttributes(ArrayCollection $attributes)
     {
         $this->attributes = $attributes;

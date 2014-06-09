@@ -2,15 +2,16 @@
 
 namespace Zoop\Product\Test\Controller;
 
-class ProductTest
+use Zoop\Product\Test\AbstractTest;
+use Zoop\Product\Test\Assets\TestData;
+
+class ProductTest extends AbstractTest
 {
-    public function setUp()
+    public function testCreateSingleProduct()
     {
-
-    }
-
-    public function tearDown()
-    {
-
+        $product = TestData::createSingleProduct(self::getUnserializer());
+        
+        $this->getDocumentManager()->persist($product);
+        $this->getDocumentManager()->flush($product);
     }
 }

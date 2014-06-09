@@ -3,8 +3,8 @@
     "slug": "11-inch-macbook-air",
     "name": "11-inch MacBook Air",
     "brand": {
-        "slug": "apple",
-        "name": "Apple"
+       "slug": "apple",
+       "name": "Apple"
     },
     "description": "<p>1.4GHz dual-core Intel Core i5 processor</p><p>Turbo Boost up to 2.7GHz</p><p>Intel HD Graphics 5000</p><p>4GB memory</p><p>128GB PCIe-based flash storage</p>",
     "metaDescription": "11-inch MacBook Air: 1.4GHz dual-core Intel Core i5 processor, 4GB memory, 128GB PCIe-based flash storage",
@@ -48,18 +48,14 @@
         "123": {
             "type": "Physical",
             "legacyId": 2,
-            "optionMap": [
-                {
-                    "storage": "128GB"
-                }
-            ],
+            "optionMap": [{
+                "storage": "128GB"
+            }],
             "shippingRates": [],
-            "suppliers": [
-                {
-                    "name": "Apple",
-                    "slug": "apple"
-                }
-            ],
+            "suppliers": [{
+               "name": "Apple",
+               "slug": "apple"
+            }],
             "dimensions": {
                 "weight": 5,
                 "width": 25,
@@ -71,16 +67,14 @@
             "type": "Physical",
             "legacyId": 3,
             "optionMap": [{
-                    "Storage": "256GB"
-                }],
+                "Storage": "256GB"
+            }],
             "priceAdjustment": {},
             "shippingRates": [],
-            "suppliers": [
-                {
-                    "name": "Apple",
-                    "slug": "apple"
-                }
-            ],
+            "suppliers": [{
+               "name": "Apple",
+               "slug": "apple"
+            }],
             "dimensions": {
                 "weight": 5,
                 "width": 25,
