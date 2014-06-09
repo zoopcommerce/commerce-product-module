@@ -22,10 +22,10 @@ class CommonAttributeSet extends AbstractAttributeSet
      *     targetDocument="Zoop\Product\DataModel\Attribute\AbstractAttribute",
      *     discriminatorField="type",
      *     discriminatorMap={
-     *         "dropdown" = "Zoop\Product\DataModel\Option\Dropdown",
-     *         "file"     = "Zoop\Product\DataModel\Option\File",
-     *         "radio"    = "Zoop\Product\DataModel\Option\Radio",
-     *         "text"     = "Zoop\Product\DataModel\Option\Text"
+     *         "Dropdown" = "Zoop\Product\DataModel\Option\Dropdown",
+     *         "File"     = "Zoop\Product\DataModel\Option\File",
+     *         "Radio"    = "Zoop\Product\DataModel\Option\Radio",
+     *         "Text"     = "Zoop\Product\DataModel\Option\Text"
      *     }
      * )
      */

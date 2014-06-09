@@ -26,9 +26,11 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     "SingleProduct"  = "SingleProduct",
  *     "Bundle"         = "Bundle"
  * })
- * @Shard\Serializer\Discriminator
  * @Shard\AccessControl({
- *     @Shard\Permission\State(roles="*", allow="*")
+ *      @Shard\Permission\Basic(roles="*", allow="*"),
+ *      @Shard\Permission\Transition(
+ *         roles="*"
+ *     )
  * })
  */
 abstract class AbstractProduct
@@ -390,7 +392,7 @@ abstract class AbstractProduct
     /**
      * @param Image $image
      */
-    public function addImageSet(Image $image)
+    public function addImageSet(ImageSet $image)
     {
         $this->getImageSets()->add($image);
     }

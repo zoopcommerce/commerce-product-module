@@ -3,6 +3,7 @@
 namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Zoop\Product\DataModel\ProductInterface;
 use Zoop\Product\DataModel\Option\AbstractOption;
 use Zoop\Product\DataModel\EmbeddedBrand;
 use Zoop\Product\DataModel\AbstractSkuDefinition;
@@ -14,10 +15,10 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\Document
  * @Shard\AccessControl({
- *     @Shard\Permission\State(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class SingleProduct extends AbstractProduct
+class SingleProduct extends AbstractProduct implements ProductInterface
 {
     /**
      * @ODM\EmbedOne(targetDocument="EmbeddedBrand")
@@ -29,11 +30,11 @@ class SingleProduct extends AbstractProduct
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "dropdown" = "Zoop\Product\DataModel\Option\Dropdown",
-     *         "file"     = "Zoop\Product\DataModel\Option\FileUpload",
-     *         "radio"    = "Zoop\Product\DataModel\Option\Radio",
-     *         "text"     = "Zoop\Product\DataModel\Option\Text",
-     *         "hidden"     = "Zoop\Product\DataModel\Option\Hidden"
+     *         "Dropdown"       = "Zoop\Product\DataModel\Option\Dropdown",
+     *         "FileUpload"     = "Zoop\Product\DataModel\Option\FileUpload",
+     *         "Radio"          = "Zoop\Product\DataModel\Option\Radio",
+     *         "Text"           = "Zoop\Product\DataModel\Option\Text",
+     *         "Hidden"         = "Zoop\Product\DataModel\Option\Hidden"
      *     }
      * )
      */
@@ -44,9 +45,9 @@ class SingleProduct extends AbstractProduct
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "file"   = "Zoop\Product\DataModel\Attribute\File",
-     *         "number" = "Zoop\Product\DataModel\Attribute\Number",
-     *         "text"   = "Zoop\Product\DataModel\Attribute\Text"
+     *         "File"   = "Zoop\Product\DataModel\Attribute\File",
+     *         "Number" = "Zoop\Product\DataModel\Attribute\Number",
+     *         "Text"   = "Zoop\Product\DataModel\Attribute\Text"
      *     }
      * )
      */
@@ -63,8 +64,8 @@ class SingleProduct extends AbstractProduct
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "physical"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
-     *         "digital"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
+     *         "Physical"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
+     *         "Digital"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
      *     }
      * )
      */
