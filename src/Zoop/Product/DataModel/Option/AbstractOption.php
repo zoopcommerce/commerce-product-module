@@ -15,7 +15,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 abstract class AbstractOption
 {
     /**
-     * @ODM\Id(strategy="UUID")
+     * @ODM\Id(strategy="NONE")
      */
     protected $id;
 
@@ -50,6 +50,15 @@ abstract class AbstractOption
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

@@ -17,6 +17,11 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 abstract class AbstractSkuDefinition
 {
     /**
+     * @ODM\Id(strategy="NONE")
+     */
+    protected $id;
+    
+    /**
      * @ODM\Int
      * @ODM\Index(unique = true)
      */
@@ -33,6 +38,24 @@ abstract class AbstractSkuDefinition
      */
     protected $priceAdjustment;
 
+    /**
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    
     /**
      * @return array
      */

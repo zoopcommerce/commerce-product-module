@@ -97,15 +97,6 @@ class Price
      */
     public function getSaleActive()
     {
-        return $this->saleActive;
-    }
-
-    /**
-     *
-     * @param boolean $saleActive
-     */
-    public function setSaleActive($saleActive)
-    {
-        $this->saleActive = (boolean) $saleActive;
+        return ($this->sale > 0);
     }
 }
