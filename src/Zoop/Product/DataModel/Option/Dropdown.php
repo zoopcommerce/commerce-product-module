@@ -3,6 +3,7 @@
 namespace Zoop\Product\DataModel\Option;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Zoop\Product\DataModel\Option\DropdownOptionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -13,39 +14,38 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Dropdown extends AbstractOption
+class Dropdown extends AbstractOption implements DropdownOptionInterface
 {
     /**
      * @ODM\Collection
      */
     protected $values;
 
-    public function __construct()
-    {
-        $this->values = new ArrayCollection();
-    }
-
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getValues()
     {
+        if (!isset($this->values)) {
+            $this->values = new ArrayCollection;
+        }
         return $this->values;
     }
 
     /**
-     *
-     * @param ArrayCollection $values
+     * {@inheritDoc}
      */
-    public function setValues(ArrayCollection $values)
+    public function setValues($values)
     {
-        $this->values = $values;
+        if (is_array($this->values)) {
+            $this->values = new ArrayCollection($values);
+        } else {
+            $this->values = $values;
+        }
     }
 
     /**
-     *
-     * @param string $value
+     * {@inheritDoc}
      */
     public function addValue($value)
     {

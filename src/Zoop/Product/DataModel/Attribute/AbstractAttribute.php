@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel\Attribute;
 
+use Zoop\Product\DataModel\Attribute\AttributeInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-abstract class AbstractAttribute
+abstract class AbstractAttribute implements AttributeInterface
 {
     /**
      *

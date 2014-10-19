@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel\Attribute;
 
+use Zoop\Product\DataModel\Attribute\NumberAttributeInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Number extends AbstractAttribute
+class Number extends AbstractAttribute implements NumberAttributeInterface
 {
     /**
      *
@@ -27,8 +28,7 @@ class Number extends AbstractAttribute
     protected $unit;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getValue()
     {
@@ -36,8 +36,7 @@ class Number extends AbstractAttribute
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getUnit()
     {
@@ -45,8 +44,7 @@ class Number extends AbstractAttribute
     }
 
     /**
-     *
-     * @param string $value
+     * {@inheritDoc}
      */
     public function setValue($value)
     {
@@ -54,8 +52,7 @@ class Number extends AbstractAttribute
     }
 
     /**
-     *
-     * @param string $unit
+     * {@inheritDoc}
      */
     public function setUnit($unit)
     {

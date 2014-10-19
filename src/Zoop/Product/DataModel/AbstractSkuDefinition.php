@@ -2,8 +2,8 @@
 
 namespace Zoop\Product\DataModel;
 
-use Zoop\Product\DataModel\PriceAdjustment;
-use Zoop\Product\DataModel\Option\AbstractOption;
+use Zoop\Product\DataModel\PriceAdjustmentInterface;
+use Zoop\Product\DataModel\Option\OptionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -20,12 +20,6 @@ abstract class AbstractSkuDefinition
      * @ODM\Id(strategy="NONE")
      */
     protected $id;
-    
-    /**
-     * @ODM\Int
-     * @ODM\Index(unique = true)
-     */
-    protected $legacyId;
 
     /**
      * @ODM\Hash
@@ -33,14 +27,12 @@ abstract class AbstractSkuDefinition
     protected $optionMap;
 
     /**
-     *
-     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\PriceAdjustment")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Product\DataModel\PriceAdjustment")
      */
     protected $priceAdjustment;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -48,16 +40,15 @@ abstract class AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param string $id
+     * {@inheritDoc}
      */
     public function setId($id)
     {
         $this->id = $id;
     }
-    
+
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getOptionMap()
     {
@@ -65,8 +56,7 @@ abstract class AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param array $optionMap
+     * {@inheritDoc}
      */
     public function setOptionMap(array $optionMap = [])
     {
@@ -74,17 +64,15 @@ abstract class AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param AbstractOption $optionMap
+     * {@inheritDoc}
      */
-    public function addOptionMap(AbstractOption $optionMap)
+    public function addOptionMap(OptionInterface $optionMap)
     {
         $this->optionMap[$optionMap->getName()] = $optionMap;
     }
 
     /**
-     *
-     * @return PriceAdjustment
+     * {@inheritDoc}
      */
     public function getPriceAdjustment()
     {
@@ -92,29 +80,10 @@ abstract class AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param PriceAdjustment $priceAdjustment
+     * {@inheritDoc}
      */
-    public function setPriceAdjustment(PriceAdjustment $priceAdjustment)
+    public function setPriceAdjustment(PriceAdjustmentInterface $priceAdjustment)
     {
         $this->priceAdjustment = $priceAdjustment;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getLegacyId()
-    {
-        return $this->legacyId;
-    }
-
-    /**
-     *
-     * @param integer $legacyId
-     */
-    public function setLegacyId($legacyId)
-    {
-        $this->legacyId = (integer) $legacyId;
     }
 }

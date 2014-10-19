@@ -37,8 +37,7 @@ abstract class AbstractSupplier
     protected $name;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -46,8 +45,7 @@ abstract class AbstractSupplier
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getSlug()
     {
@@ -55,8 +53,7 @@ abstract class AbstractSupplier
     }
 
     /**
-     *
-     * @param type $slug
+     * {@inheritDoc}
      */
     public function setSlug($slug)
     {
@@ -64,8 +61,7 @@ abstract class AbstractSupplier
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -73,8 +69,7 @@ abstract class AbstractSupplier
     }
 
     /**
-     *
-     * @param string $name
+     * {@inheritDoc}
      */
     public function setName($name)
     {

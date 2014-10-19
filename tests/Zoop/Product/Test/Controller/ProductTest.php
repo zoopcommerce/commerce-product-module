@@ -24,8 +24,18 @@ class ProductTest extends AbstractTest
         $this->assertEquals(1, $product->getLegacyId());
         $this->assertEquals('11-inch-macbook-air', $product->getSlug());
         $this->assertEquals('11-inch MacBook Air', $product->getName());
-        $this->assertEquals('<p>1.4GHz dual-core Intel Core i5 processor</p><p>Turbo Boost up to 2.7GHz</p><p>Intel HD Graphics 5000</p><p>4GB memory</p><p>128GB PCIe-based flash storage</p>', $product->getDescription());
-        $this->assertEquals('11-inch MacBook Air: 1.4GHz dual-core Intel Core i5 processor, 4GB memory, 128GB PCIe-based flash storage', $product->getMetaDescription());
+        $this->assertEquals(
+            '<p>1.4GHz dual-core Intel Core i5 processor</p>'
+            . '<p>Turbo Boost up to 2.7GHz</p><p>Intel HD Graphics 5000</p>'
+            . '<p>4GB memory</p>'
+            . '<p>128GB PCIe-based flash storage</p>',
+            $product->getDescription()
+        );
+        $this->assertEquals(
+            '11-inch MacBook Air: 1.4GHz dual-core Intel Core i5 processor,'
+            . '4GB memory, 128GB PCIe-based flash storage',
+            $product->getMetaDescription()
+        );
         $this->assertEquals('Apple', $product->getBrand()->getName());
         $this->assertEquals('apple', $product->getBrand()->getSlug());
         $this->assertFalse($product->getHidden());

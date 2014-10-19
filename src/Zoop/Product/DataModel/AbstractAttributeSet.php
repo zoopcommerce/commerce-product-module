@@ -15,14 +15,12 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 abstract class AbstractAttributeSet
 {
     /**
-     *
      * @ODM\Id(strategy="UUID")
      */
     protected $id;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {

@@ -3,8 +3,11 @@
 namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Product\DataModel\Attribute\AbstractAttribute;
-use Zoop\Store\DataModel\Store;
+use Zoop\Product\DataModel\Attribute\AttributeInterface;
+use Zoop\Product\DataModel\CommonAttributeSetInterface;
+use Zoop\Product\DataModel\AttributeSetInterface;
+use Zoop\Store\DataModel\FilterStoreInterface;
+use Zoop\Store\DataModel\StoresTrait;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -15,8 +18,13 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class CommonAttributeSet extends AbstractAttributeSet
+class CommonAttributeSet extends AbstractAttributeSet implements
+    AttributeSetInterface,
+    CommonAttributeSetInterface,
+    FilterStoreInterface
 {
+    use StoresTrait;
+
     /**
      * @ODM\EmbedMany(
      *     targetDocument="Zoop\Product\DataModel\Attribute\AbstractAttribute",
@@ -32,72 +40,32 @@ class CommonAttributeSet extends AbstractAttributeSet
     protected $attributes;
 
     /**
-     * Array. Stores that this product is part of.
-     * The Zones annotation means this field is used by the Zones filter so
-     * only products from the active store are available.
-     *
-     * @ODM\Collection
-     * @Shard\Zones
-     * @Shard\Validator\Required
-     */
-    protected $store;
-
-    public function __construct()
-    {
-        $this->attributes = new ArrayCollection();
-        $this->stores = new ArrayCollection();
-    }
-
-    /**
-     *
-     * @return ArrayCollection
-     */
-    public function getStores()
-    {
-        return $this->stores;
-    }
-
-    /**
-     *
-     * @param ArrayCollection $stores
-     */
-    public function setStores(ArrayCollection $stores)
-    {
-        $this->stores = $stores;
-    }
-
-    /**
-     *
-     * @param Store $store
-     */
-    public function addStore(Store $store)
-    {
-        $this->getStores()->add($store->getId());
-    }
-
-    /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getAttributes()
     {
+        if (!isset($this->attributes)) {
+            $this->attributes = new ArrayCollection;
+        }
         return $this->attributes;
     }
 
     /**
-     *
-     * @param ArrayCollection $attributes
+     * {@inheritDoc}
      */
-    public function setAttributes(ArrayCollection $attributes)
+    public function setAttributes($attributes)
     {
-        $this->attributes = $attributes;
+        if (is_array($this->attributes)) {
+            $this->attributes = new ArrayCollection($attributes);
+        } else {
+            $this->attributes = $attributes;
+        }
     }
 
     /**
-     *
-     * @param AbstractAttribute $attribute
+     * {@inheritDoc}
      */
-    public function addAttribute(AbstractAttribute $attribute)
+    public function addAttribute(AttributeInterface $attribute)
     {
         $this->getAttributes()->add($attribute);
     }

@@ -2,7 +2,8 @@
 
 namespace Zoop\Product\DataModel;
 
-use Zoop\Common\File\DataModel\Image;
+use Zoop\Product\DataModel\ImageSetInterface;
+use Zoop\Common\File\DataModel\ImageInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -13,97 +14,100 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class ImageSet
+class ImageSet implements ImageSetInterface
 {
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $raw;
 
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $extraLarge;
 
     /**
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $large;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $medium;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $small;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $thumbnail;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $adminFeatureSmall;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $adminThumbnailSmall;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $adminFeatureLarge;
 
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Zoop\Common\File\DataModel\Image")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Common\File\DataModel\Image")
      */
     protected $adminThumbnailLarge;
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getRaw()
     {
         return $this->raw;
     }
 
-    public function setRaw(Image $raw)
+    /**
+     * {@inheritDoc}
+     */
+    public function setRaw(ImageInterface $raw)
     {
         $this->raw = $raw;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getExtraLarge()
     {
         return $this->extraLarge;
     }
 
-    public function setExtraLarge(Image $extraLarge)
+    /**
+     * {@inheritDoc}
+     */
+    public function setExtraLarge(ImageInterface $extraLarge)
     {
         $this->extraLarge = $extraLarge;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getLarge()
     {
@@ -111,17 +115,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $large
+     * {@inheritDoc}
      */
-    public function setLarge(Image $large)
+    public function setLarge(ImageInterface $large)
     {
         $this->large = $large;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getMedium()
     {
@@ -129,17 +131,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $medium
+     * {@inheritDoc}
      */
-    public function setMedium(Image $medium)
+    public function setMedium(ImageInterface $medium)
     {
         $this->medium = $medium;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getSmall()
     {
@@ -147,17 +147,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $small
+     * {@inheritDoc}
      */
-    public function setSmall(Image $small)
+    public function setSmall(ImageInterface $small)
     {
         $this->small = $small;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getThumbnail()
     {
@@ -165,17 +163,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $thumbnail
+     * {@inheritDoc}
      */
-    public function setThumbnail(Image $thumbnail)
+    public function setThumbnail(ImageInterface $thumbnail)
     {
         $this->thumbnail = $thumbnail;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getAdminFeatureSmall()
     {
@@ -183,17 +179,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $adminFeatureSmall
+     * {@inheritDoc}
      */
-    public function setAdminFeatureSmall(Image $adminFeatureSmall)
+    public function setAdminFeatureSmall(ImageInterface $adminFeatureSmall)
     {
         $this->adminFeatureSmall = $adminFeatureSmall;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getAdminThumbnailSmall()
     {
@@ -201,17 +195,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $adminThumbnailSmall
+     * {@inheritDoc}
      */
-    public function setAdminThumbnailSmall(Image $adminThumbnailSmall)
+    public function setAdminThumbnailSmall(ImageInterface $adminThumbnailSmall)
     {
         $this->adminThumbnailSmall = $adminThumbnailSmall;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getAdminFeatureLarge()
     {
@@ -219,17 +211,15 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $adminFeatureLarge
+     * {@inheritDoc}
      */
-    public function setAdminFeatureLarge(Image $adminFeatureLarge)
+    public function setAdminFeatureLarge(ImageInterface $adminFeatureLarge)
     {
         $this->adminFeatureLarge = $adminFeatureLarge;
     }
 
     /**
-     *
-     * @return Image
+     * {@inheritDoc}
      */
     public function getAdminThumbnailLarge()
     {
@@ -237,10 +227,9 @@ class ImageSet
     }
 
     /**
-     *
-     * @param Image $adminThumbnailLarge
+     * {@inheritDoc}
      */
-    public function setAdminThumbnailLarge(Image $adminThumbnailLarge)
+    public function setAdminThumbnailLarge(ImageInterface $adminThumbnailLarge)
     {
         $this->adminThumbnailLarge = $adminThumbnailLarge;
     }

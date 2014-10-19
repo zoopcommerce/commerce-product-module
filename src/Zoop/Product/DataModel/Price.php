@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel;
 
+use Zoop\Product\DataModel\PriceInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,16 +13,14 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Price
+class Price implements PriceInterface
 {
     /**
-     *
      * @ODM\Float
      */
     protected $full;
 
     /**
-     *
      * @ODM\Float
      */
     protected $sale;
@@ -38,8 +37,7 @@ class Price
     protected $saleActive;
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getFull()
     {
@@ -47,8 +45,7 @@ class Price
     }
 
     /**
-     *
-     * @param float $full
+     * {@inheritDoc}
      */
     public function setFull($full)
     {
@@ -56,8 +53,7 @@ class Price
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getSale()
     {
@@ -65,8 +61,7 @@ class Price
     }
 
     /**
-     *
-     * @param float $sale
+     * {@inheritDoc}
      */
     public function setSale($sale)
     {
@@ -74,8 +69,7 @@ class Price
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getWholesale()
     {
@@ -83,8 +77,7 @@ class Price
     }
 
     /**
-     *
-     * @param float $wholesale
+     * {@inheritDoc}
      */
     public function setWholesale($wholesale)
     {
@@ -92,10 +85,9 @@ class Price
     }
 
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getSaleActive()
+    public function isSaleActive()
     {
         return ($this->sale > 0);
     }

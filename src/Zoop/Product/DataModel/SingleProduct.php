@@ -3,11 +3,11 @@
 namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Product\DataModel\ProductInterface;
-use Zoop\Product\DataModel\Option\AbstractOption;
-use Zoop\Product\DataModel\EmbeddedBrand;
-use Zoop\Product\DataModel\AbstractSkuDefinition;
-use Zoop\Product\DataModel\Attribute\AbstractAttribute;
+use Zoop\Product\DataModel\SingleProductInterface;
+use Zoop\Product\DataModel\Option\OptionInterface;
+use Zoop\Product\DataModel\EmbeddedBrandInterface;
+use Zoop\Product\DataModel\SkuDefinitionInterface;
+use Zoop\Product\DataModel\Attribute\AttributeInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -18,7 +18,8 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class SingleProduct extends AbstractProduct implements ProductInterface
+class SingleProduct extends AbstractProduct implements
+    SingleProductInterface
 {
     /**
      * @ODM\EmbedOne(targetDocument="EmbeddedBrand")
@@ -30,11 +31,11 @@ class SingleProduct extends AbstractProduct implements ProductInterface
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "Dropdown"       = "Zoop\Product\DataModel\Option\Dropdown",
-     *         "FileUpload"     = "Zoop\Product\DataModel\Option\FileUpload",
-     *         "Radio"          = "Zoop\Product\DataModel\Option\Radio",
-     *         "Text"           = "Zoop\Product\DataModel\Option\Text",
-     *         "Hidden"         = "Zoop\Product\DataModel\Option\Hidden"
+     *         "Dropdown"       = "\Zoop\Product\DataModel\Option\Dropdown",
+     *         "FileUpload"     = "\Zoop\Product\DataModel\Option\FileUpload",
+     *         "Radio"          = "\Zoop\Product\DataModel\Option\Radio",
+     *         "Text"           = "\Zoop\Product\DataModel\Option\Text",
+     *         "Hidden"         = "\Zoop\Product\DataModel\Option\Hidden"
      *     }
      * )
      */
@@ -45,9 +46,9 @@ class SingleProduct extends AbstractProduct implements ProductInterface
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "File"   = "Zoop\Product\DataModel\Attribute\File",
-     *         "Number" = "Zoop\Product\DataModel\Attribute\Number",
-     *         "Text"   = "Zoop\Product\DataModel\Attribute\Text"
+     *         "File"   = "\Zoop\Product\DataModel\Attribute\File",
+     *         "Number" = "\Zoop\Product\DataModel\Attribute\Number",
+     *         "Text"   = "\Zoop\Product\DataModel\Attribute\Text"
      *     }
      * )
      */
@@ -57,30 +58,22 @@ class SingleProduct extends AbstractProduct implements ProductInterface
      *
      * @ODM\String
      */
-    protected $notForIndividualSale;
+    protected $isNotForIndividualSale;
 
     /**
      * @ODM\EmbedMany(
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "Physical"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
-     *         "Digital"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
+     *         "Physical"  = "\Zoop\Product\DataModel\PhysicalSkuDefinition",
+     *         "Digital"   = "\Zoop\Product\DataModel\DigitalSkuDefinition"
      *     }
      * )
      */
     protected $skuDefinitions;
 
-    public function __construct()
-    {
-        $this->suppliers = new ArrayCollection();
-        $this->options = new ArrayCollection();
-        $this->skuDefinitions = new ArrayCollection();
-    }
-
     /**
-     *
-     * @return EmbeddedBrand
+     * {@inheritDoc}
      */
     public function getBrand()
     {
@@ -88,105 +81,119 @@ class SingleProduct extends AbstractProduct implements ProductInterface
     }
 
     /**
-     *
-     * @param EmbeddedBrand $brand
+     * {@inheritDoc}
      */
-    public function setBrand(EmbeddedBrand $brand)
+    public function setBrand(EmbeddedBrandInterface $brand)
     {
         $this->brand = $brand;
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getOptions()
     {
+        if (!isset($this->options)) {
+            $this->options = new ArrayCollection;
+        }
         return $this->options;
     }
 
     /**
-     *
-     * @param ArrayCollection $options
+     * {@inheritDoc}
      */
-    public function setOptions(ArrayCollection $options)
+    public function setOptions($options)
     {
-        $this->options = $options;
+        if (is_array($this->options)) {
+            $this->options = new ArrayCollection($options);
+        } else {
+            $this->options = $options;
+        }
     }
 
     /**
-     * @param AbstractOption $option
+     * {@inheritDoc}
      */
-    public function addOption(AbstractOption $option)
+    public function addOption(OptionInterface $option)
     {
         $this->getOptions()->add($option);
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getAttributes()
     {
+        if (!isset($this->attributes)) {
+            $this->attributes = new ArrayCollection;
+        }
         return $this->attributes;
     }
 
     /**
-     * @param ArrayCollection $attributes
+     * {@inheritDoc}
      */
-    public function setAttributes(ArrayCollection $attributes)
+    public function setAttributes($attributes)
     {
+        if (is_array($this->attributes)) {
+            $this->attributes = new ArrayCollection($attributes);
+        } else {
+            $this->attributes = $attributes;
+        }
         $this->attributes = $attributes;
     }
 
     /**
-     *
-     * @param AbstractAttribute $attribute
+     * {@inheritDoc}
      */
-    public function addAttribute(AbstractAttribute $attribute)
+    public function addAttribute(AttributeInterface $attribute)
     {
         $this->getAttributes()->add($attribute);
     }
 
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getNotForIndividualSale()
+    public function isNotForIndividualSale()
     {
-        return $this->notForIndividualSale;
+        return $this->isNotForIndividualSale;
     }
 
     /**
-     *
-     * @param boolean $notForIndividualSale
+     * {@inheritDoc}
      */
-    public function setNotForIndividualSale($notForIndividualSale)
+    public function setIsNotForIndividualSale($isNotForIndividualSale)
     {
-        $this->notForIndividualSale = (boolean) $notForIndividualSale;
+        $this->isNotForIndividualSale = (boolean) $isNotForIndividualSale;
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getSkuDefinitions()
     {
+        if (!isset($this->skuDefinitions)) {
+            $this->skuDefinitions = new ArrayCollection;
+        }
         return $this->skuDefinitions;
     }
 
     /**
-     * @param ArrayCollection $skuDefinitions
+     * {@inheritDoc}
      */
-    public function setSkuDefinitions(ArrayCollection $skuDefinitions)
+    public function setSkuDefinitions($skuDefinitions)
     {
-        $this->skuDefinitions = $skuDefinitions;
+        if (is_array($this->skuDefinitions)) {
+            $this->skuDefinitions = new ArrayCollection($skuDefinitions);
+        } else {
+            $this->skuDefinitions = $skuDefinitions;
+        }
     }
 
     /**
-     * @param AbstractSkuDefinition $skuDefinition
+     * {@inheritDoc}
      */
-    public function addSkuDefinition(AbstractSkuDefinition $skuDefinition)
+    public function addSkuDefinition(SkuDefinitionInterface $skuDefinition)
     {
         $this->getSkuDefinitions()->add($skuDefinition);
     }

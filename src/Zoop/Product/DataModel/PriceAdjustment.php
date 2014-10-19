@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel;
 
+use Zoop\Product\DataModel\PriceAdjustmentInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class PriceAdjustment
+class PriceAdjustment implements PriceAdjustmentInterface
 {
     /**
      * @ODM\String
@@ -30,8 +31,7 @@ class PriceAdjustment
     protected $adjustment;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getType()
     {
@@ -39,8 +39,7 @@ class PriceAdjustment
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getAdjustment()
     {
@@ -48,8 +47,7 @@ class PriceAdjustment
     }
 
     /**
-     *
-     * @param string $type
+     * {@inheritDoc}
      */
     public function setType($type)
     {
@@ -57,8 +55,7 @@ class PriceAdjustment
     }
 
     /**
-     *
-     * @param float $adjustment
+     * {@inheritDoc}
      */
     public function setAdjustment($adjustment)
     {
