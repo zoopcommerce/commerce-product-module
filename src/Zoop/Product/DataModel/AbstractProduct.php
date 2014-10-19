@@ -3,12 +3,14 @@
 namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Category\DataModel\Category;
-use Zoop\Common\File\DataModel\Image;
-use Zoop\Common\DataModel\Url;
-use Zoop\Common\DataModel\CustomHtml;
-use Zoop\Product\DataModel\ImageSet;
-use Zoop\Store\DataModel\Store;
+use Zoop\Collection\DataModel\CollectionInterface;
+use Zoop\Common\DataModel\UrlInterface;
+use Zoop\Common\DataModel\CustomHtmlInterface;
+use Zoop\Product\DataModel\ImageSetInterface;
+use Zoop\Product\DataModel\PriceInterface;
+use Zoop\Product\DataModel\ProductInterface;
+use Zoop\Store\DataModel\StoresTrait;
+use Zoop\Store\DataModel\StoresTraitInterface;
 use Zoop\Shard\Stamp\DataModel\CreatedOnTrait;
 use Zoop\Shard\Stamp\DataModel\CreatedByTrait;
 use Zoop\Shard\Stamp\DataModel\UpdatedOnTrait;
@@ -27,19 +29,24 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     "Bundle"         = "Bundle"
  * })
  * @Shard\AccessControl({
- *      @Shard\Permission\Basic(roles="*", allow="*"),
- *      @Shard\Permission\Transition(
- *         roles="*"
- *     )
+ *     @Shard\Permission\Basic(roles="*", allow="read"),
+ *     @Shard\Permission\Basic(roles="zoop::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="partner::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="company::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="store::admin", allow={"update::*"}),
+ *     @Shard\Permission\Transition(roles={"zoop::admin", "partner::admin", "company::admin", "store::admin"})
  * })
  */
-abstract class AbstractProduct
+abstract class AbstractProduct implements
+    ProductInterface,
+    StoresTraitInterface
 {
     use CreatedOnTrait;
     use CreatedByTrait;
     use UpdatedOnTrait;
     use UpdatedByTrait;
     use SoftDeleteableTrait;
+    use StoresTrait;
 
     /**
      * @ODM\Id(strategy="UUID")
@@ -75,24 +82,6 @@ abstract class AbstractProduct
 
     /**
      *
-     * @ODM\Int
-     * @ODM\UniqueIndex(order="asc")
-     */
-    protected $legacyId;
-
-    /**
-     * Array. Stores that this product is part of.
-     * The Zones annotation means this field is used by the Zones filter so
-     * only products from the active store are available.
-     *
-     * @ODM\Collection
-     * @Shard\Zones
-     * @Shard\Validator\Required
-     */
-    protected $stores;
-
-    /**
-     *
      * @ODM\String
      * @Shard\Validator\Required
      */
@@ -105,15 +94,13 @@ abstract class AbstractProduct
     protected $metaDescription;
 
     /**
-     * @ODM\ReferenceMany(targetDocument="Zoop\Category\DataModel\Category", simple="true", inversedBy="products")
+     * @ODM\ReferenceMany(
+     *      targetDocument="Zoop\Collection\DataModel\AbstractCollection",
+     *      simple="true",
+     *      inversedBy="products"
+     *  )
      */
-    protected $categories;
-
-    /**
-     * @ODM\Collection
-     * @ODM\Index
-     */
-    protected $legacyCategories;
+    protected $collections;
 
     /**
      *
@@ -124,7 +111,7 @@ abstract class AbstractProduct
 
     /**
      *
-     * @ODM\EmbedMany(targetDocument="ImageSet")
+     * @ODM\EmbedMany(targetDocument="Zoop\Product\DataModel\ImageSet")
      */
     protected $imageSets;
 
@@ -146,126 +133,86 @@ abstract class AbstractProduct
     protected $state = 'active';
 
     /**
-     *
-     * @ODM\EmbedOne(targetDocument="Price")
+     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\Price")
      * @Shard\Validator\Required
      */
     protected $price;
     protected $canPurchase;
 
-    public function __construct()
-    {
-        $this->stores = new ArrayCollection();
-        $this->categories = new ArrayCollection();
-        $this->imageSets = new ArrayCollection();
-        $this->legacyCategories = new ArrayCollection();
-    }
-
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCustomHtml()
     {
         return $this->customHtml;
     }
 
-    public function setCustomHtml(CustomHtml $customHtml)
+    /**
+     * {@inheritDoc}
+     */
+    public function setCustomHtml(CustomHtmlInterface $customHtml)
     {
         $this->customHtml = $customHtml;
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getSlug()
     {
         return $this->slug;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setSlug($slug)
     {
         $this->slug = $slug;
     }
 
     /**
-     *
-     * @return integer
-     */
-    public function getLegacyId()
-    {
-        return $this->legacyId;
-    }
-
-    public function setLegacyId($legacyId)
-    {
-        $this->legacyId = (int) $legacyId;
-    }
-
-    /**
-     *
-     * @return ArrayCollection
-     */
-    public function getStores()
-    {
-        return $this->stores;
-    }
-
-    /**
-     *
-     * @param ArrayCollection $stores
-     */
-    public function setStores(ArrayCollection $stores)
-    {
-        $this->stores = $stores;
-    }
-
-    /**
-     *
-     * @param Store $store
-     */
-    public function addStore(Store $store)
-    {
-        $this->getStores()->add($store->getId());
-    }
-
-    /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
         $this->name = (string) $name;
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setDescription($description)
     {
         $this->description = (string) $description;
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getMetaDescription()
     {
@@ -273,8 +220,7 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @param type $metaDescription
+     * {@inheritDoc}
      */
     public function setMetaDescription($metaDescription)
     {
@@ -282,71 +228,46 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
-    public function getCategories()
+    public function getCollections()
     {
-        return $this->categories;
+        if (!isset($this->collections)) {
+            $this->collections = new ArrayCollection;
+        }
+        return $this->collections;
     }
 
     /**
-     *
-     * @param ArrayCollection $categories
+     * {@inheritDoc}
      */
-    public function setCategories(ArrayCollection $categories)
+    public function setCollections($collections)
     {
-        $this->categories = $categories;
+        if (is_array($this->collections)) {
+            $this->collections = new ArrayCollection($collections);
+        } else {
+            $this->collections = $collections;
+        }
     }
 
     /**
-     *
-     * @param Category $category
+     * {@inheritDoc}
      */
-    public function addCategory(Category $category)
+    public function addCollection(CollectionInterface $collection)
     {
-        $this->getCategories()->add($category);
+        $this->getCollections()->add($collection);
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
-    public function getLegacyCategories()
-    {
-        return $this->legacyCategories;
-    }
-
-    /**
-     *
-     * @param ArrayCollection $legacyCategories
-     */
-    public function setLegacyCategories(ArrayCollection $legacyCategories)
-    {
-        $this->legacyCategories = $legacyCategories;
-    }
-
-    /**
-     *
-     * @param string $category
-     */
-    public function addLegacyCategory($category)
-    {
-        $this->getLegacyCategories()->add($category);
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    public function getHidden()
+    public function isHidden()
     {
         return $this->hidden;
     }
 
     /**
-     *
-     * @param boolean $hidden
+     * {@inheritDoc}
      */
     public function setHidden($hidden)
     {
@@ -354,8 +275,7 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @return Url
+     * {@inheritDoc}
      */
     public function getUrl()
     {
@@ -363,43 +283,46 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @param Url $url
+     * {@inheritDoc}
      */
-    public function setUrl(Url $url)
+    public function setUrl(UrlInterface $url)
     {
         $this->url = $url;
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getImageSets()
     {
+        if (!isset($this->imageSets)) {
+            $this->imageSets = new ArrayCollection;
+        }
         return $this->imageSets;
     }
 
     /**
-     *
-     * @param ArrayCollection $imageSets
+     * {@inheritDoc}
      */
-    public function setImageSets(ArrayCollection $imageSets)
+    public function setImageSets($imageSets)
     {
-        $this->imageSets = $imageSets;
+        if (is_array($this->imageSets)) {
+            $this->imageSets = new ArrayCollection($imageSets);
+        } else {
+            $this->imageSets = $imageSets;
+        }
     }
 
     /**
-     * @param Image $image
+     * {@inheritDoc}
      */
-    public function addImageSet(ImageSet $image)
+    public function addImageSet(ImageSetInterface $imageSet)
     {
-        $this->getImageSets()->add($image);
+        $this->getImageSets()->add($imageSet);
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getState()
     {
@@ -407,8 +330,7 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @param string $state
+     * {@inheritDoc}
      */
     public function setState($state)
     {
@@ -416,17 +338,15 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getCanPurchase()
+    public function canPurchase()
     {
         return $this->canPurchase;
     }
 
     /**
-     *
-     * @param boolean $canPurchase
+     * {@inheritDoc}
      */
     public function setCanPurchase($canPurchase)
     {
@@ -434,8 +354,7 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @return Price
+     * {@inheritDoc}
      */
     public function getPrice()
     {
@@ -443,10 +362,9 @@ abstract class AbstractProduct
     }
 
     /**
-     *
-     * @param Price $price
+     * {@inheritDoc}
      */
-    public function setPrice(Price $price)
+    public function setPrice(PriceInterface $price)
     {
         $this->price = $price;
     }

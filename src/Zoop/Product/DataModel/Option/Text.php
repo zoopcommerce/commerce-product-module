@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel\Option;
 
+use Zoop\Product\DataModel\Option\TextOptionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Text extends AbstractOption
+class Text extends AbstractOption implements TextOptionInterface
 {
     /**
      *

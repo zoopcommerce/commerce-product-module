@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel;
 
+use Zoop\Product\DataModel\ShippingRateInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class ShippingRate
+class ShippingRate implements ShippingRateInterface
 {
     /**
      *
@@ -34,8 +35,7 @@ class ShippingRate
     protected $additionalRate;
 
     /**
-     *
-     * @return Country
+     * {@inheritDoc}
      */
     public function getCountry()
     {
@@ -43,17 +43,15 @@ class ShippingRate
     }
 
     /**
-     *
-     * @param Country $country
+     * {@inheritDoc}
      */
-    public function setCountry(Country $country)
+    public function setCountry($country)
     {
         $this->country = $country;
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getSingleRate()
     {
@@ -61,8 +59,7 @@ class ShippingRate
     }
 
     /**
-     *
-     * @param float $singleRate
+     * {@inheritDoc}
      */
     public function setSingleRate($singleRate)
     {
@@ -70,8 +67,7 @@ class ShippingRate
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getAdditionalRate()
     {
@@ -79,8 +75,7 @@ class ShippingRate
     }
 
     /**
-     *
-     * @param float $additionalRate
+     * {@inheritDoc}
      */
     public function setAdditionalRate($additionalRate)
     {

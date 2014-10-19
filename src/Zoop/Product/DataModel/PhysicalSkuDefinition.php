@@ -3,9 +3,11 @@
 namespace Zoop\Product\DataModel;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Zoop\Product\DataModel\ShippingRate;
-use Zoop\Product\DataModel\Dimensions;
-use Zoop\Product\DataModel\EmbeddedSupplier;
+use Zoop\Product\DataModel\PhysicalSkuDefinitionInterface;
+use Zoop\Product\DataModel\SkuDefinitionInterface;
+use Zoop\Product\DataModel\ShippingRateInterface;
+use Zoop\Product\DataModel\DimensionsInterface;
+use Zoop\Product\DataModel\EmbeddedSupplierInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -16,7 +18,9 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class PhysicalSkuDefinition extends AbstractSkuDefinition
+class PhysicalSkuDefinition extends AbstractSkuDefinition implements
+    PhysicalSkuDefinitionInterface,
+    SkuDefinitionInterface
 {
     /**
      *
@@ -40,43 +44,39 @@ class PhysicalSkuDefinition extends AbstractSkuDefinition
      */
     protected $quantity = 0;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->suppliers = new ArrayCollection();
-        $this->shippingRates = new ArrayCollection();
-    }
-
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getShippingRates()
     {
+        if (!isset($this->shippingRates)) {
+            $this->shippingRates = new ArrayCollection;
+        }
         return $this->shippingRates;
     }
 
     /**
-     *
-     * @param ArrayCollection $shippingRates
+     * {@inheritDoc}
      */
-    public function setShippingRates(ArrayCollection $shippingRates)
+    public function setShippingRates($shippingRates)
     {
-        $this->shippingRates = $shippingRates;
+        if (is_array($this->shippingRates)) {
+            $this->shippingRates = new ArrayCollection($shippingRates);
+        } else {
+            $this->shippingRates = $shippingRates;
+        }
     }
 
     /**
-     *
-     * @param ShippingRate $shippingRate
+     * {@inheritDoc}
      */
-    public function addShippingRate(ShippingRate $shippingRate)
+    public function addShippingRate(ShippingRateInterface $shippingRate)
     {
         $this->getShippingRates()->add($shippingRate);
     }
 
     /**
-     *
-     * @return Dimensions
+     * {@inheritDoc}
      */
     public function getDimensions()
     {
@@ -84,44 +84,46 @@ class PhysicalSkuDefinition extends AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param Dimensions $dimensions
+     * {@inheritDoc}
      */
-    public function setDimensions(Dimensions $dimensions)
+    public function setDimensions(DimensionsInterface $dimensions)
     {
         $this->dimensions = $dimensions;
     }
 
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getSuppliers()
     {
+        if (!isset($this->suppliers)) {
+            $this->suppliers = new ArrayCollection;
+        }
         return $this->suppliers;
     }
 
     /**
-     *
-     * @param ArrayCollection $suppliers
+     * {@inheritDoc}
      */
-    public function setSuppliers(ArrayCollection $suppliers)
+    public function setSuppliers($suppliers)
     {
-        $this->suppliers = $suppliers;
+        if (is_array($this->$suppliers)) {
+            $this->suppliers = new ArrayCollection($suppliers);
+        } else {
+            $this->suppliers = $suppliers;
+        }
     }
 
     /**
-     *
-     * @param EmbeddedSupplier $supplier
+     * {@inheritDoc}
      */
-    public function addSupplier(EmbeddedSupplier $supplier)
+    public function addSupplier(EmbeddedSupplierInterface $supplier)
     {
         $this->getSuppliers()->add($supplier);
     }
 
     /**
-     *
-     * @return integer
+     * {@inheritDoc}
      */
     public function getQuantity()
     {
@@ -129,8 +131,7 @@ class PhysicalSkuDefinition extends AbstractSkuDefinition
     }
 
     /**
-     *
-     * @param integer $quantity
+     * {@inheritDoc}
      */
     public function setQuantity($quantity)
     {

@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel;
 
+use Zoop\Product\DataModel\DimensionsInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Dimensions
+class Dimensions implements DimensionsInterface
 {
     /**
      *
@@ -39,8 +40,7 @@ class Dimensions
     protected $depth;
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getWeight()
     {
@@ -48,8 +48,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @param float $weight
+     * {@inheritDoc}
      */
     public function setWeight($weight)
     {
@@ -57,8 +56,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getWidth()
     {
@@ -66,8 +64,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @param float $width
+     * {@inheritDoc}
      */
     public function setWidth($width)
     {
@@ -75,8 +72,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getHeight()
     {
@@ -84,8 +80,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @param float $height
+     * {@inheritDoc}
      */
     public function setHeight($height)
     {
@@ -93,8 +88,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @return float
+     * {@inheritDoc}
      */
     public function getDepth()
     {
@@ -102,8 +96,7 @@ class Dimensions
     }
 
     /**
-     *
-     * @param float $depth
+     * {@inheritDoc}
      */
     public function setDepth($depth)
     {

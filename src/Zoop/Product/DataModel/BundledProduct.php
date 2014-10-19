@@ -2,9 +2,10 @@
 
 namespace Zoop\Product\DataModel;
 
-use Zoop\Product\DataModel\PriceAdjustment;
-use Zoop\Product\DataModel\SingleProduct;
 use Doctrine\Common\Collections\ArrayCollection;
+use Zoop\Product\DataModel\BundledProductInterface;
+use Zoop\Product\DataModel\PriceAdjustmentInterface;
+use Zoop\Product\DataModel\SingleProductInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -15,74 +16,73 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class BundledProduct
+class BundledProduct implements BundledProductInterface
 {
     /**
-     * @ODM\ReferenceMany(targetDocument="Zoop\Product\DataModel\SingleProduct", simple="true")
+     * @ODM\ReferenceMany(targetDocument="\Zoop\Product\DataModel\SingleProduct", simple="true")
      * @Shard\Serializer\Eager
      */
     protected $products;
 
     /**
-     *
      * @ODM\Boolean
      */
-    protected $required;
+    protected $isRequired;
 
     /**
-     *
-     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\PriceAdjustment")
+     * @ODM\EmbedOne(targetDocument="\Zoop\Product\DataModel\PriceAdjustment")
      */
     protected $priceAdjustment;
 
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
     /**
-     *
-     * @return ArrayCollection
+     * {@inheritDoc}
      */
     public function getProducts()
     {
+        if (!isset($this->products)) {
+            $this->products = new ArrayCollection;
+        }
         return $this->products;
     }
 
     /**
-     *
-     * @param ArrayCollection $products
+     * {@inheritDoc}
      */
-    public function setProducts(SingleProduct $product)
+    public function setProducts($products)
+    {
+        if (is_array($this->products)) {
+            $this->products = new ArrayCollection($products);
+        } else {
+            $this->products = $products;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addProduct(SingleProductInterface $product)
     {
         $this->getProducts()->add($product);
     }
 
-    public function addProduct(ArrayCollection $products)
-    {
-        $this->products = $products;
-    }
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getRequired()
+    public function isRequired()
     {
-        return $this->required;
+        return $this->isRequired;
     }
 
     /**
-     *
-     * @param boolean $required
+     * {@inheritDoc}
      */
-    public function setRequired($required)
+    public function setIsRequired($isRequired)
     {
-        $this->required = (boolean) $required;
+        $this->isRequired = (boolean) $isRequired;
     }
 
     /**
-     *
-     * @return PriceAdjustment
+     * {@inheritDoc}
      */
     public function getPriceAdjustment()
     {
@@ -90,10 +90,9 @@ class BundledProduct
     }
 
     /**
-     *
-     * @param PriceAdjustment $priceAdjustment
+     * {@inheritDoc}
      */
-    public function setPriceAdjustment(PriceAdjustment $priceAdjustment)
+    public function setPriceAdjustment(PriceAdjustmentInterface $priceAdjustment)
     {
         $this->priceAdjustment = $priceAdjustment;
     }

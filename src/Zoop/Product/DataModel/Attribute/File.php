@@ -2,7 +2,8 @@
 
 namespace Zoop\Product\DataModel\Attribute;
 
-use Zoop\Common\DataModel\File as CommonFile;
+use Zoop\Common\File\DataModel\FileInterface;
+use Zoop\Product\DataModel\Attribute\FileAttributeInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -13,17 +14,16 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class File extends AbstractAttribute
+class File extends AbstractAttribute implements FileAttributeInterface
 {
     /**
      *
-     * @ODM\ReferenceOne(targetDocument="Zoop\Common\DataModel\File")
+     * @ODM\ReferenceOne(targetDocument="\Zoop\Common\File\DataModel\File")
      */
     protected $file;
 
     /**
-     *
-     * @return CommonFile
+     * {@inheritDoc}
      */
     public function getFile()
     {
@@ -31,10 +31,9 @@ class File extends AbstractAttribute
     }
 
     /**
-     *
-     * @param CommonFile $file
+     * {@inheritDoc}
      */
-    public function setFile(CommonFile $file)
+    public function setFile(FileInterface $file)
     {
         $this->file = $file;
     }

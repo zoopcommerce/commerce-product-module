@@ -2,6 +2,7 @@
 
 namespace Zoop\Product\DataModel\Attribute;
 
+use Zoop\Product\DataModel\Attribute\TextAttributeInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
@@ -12,7 +13,7 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-class Text extends AbstractAttribute
+class Text extends AbstractAttribute implements TextAttributeInterface
 {
     /**
      *
@@ -28,8 +29,7 @@ class Text extends AbstractAttribute
     protected $unit;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getValue()
     {
@@ -37,8 +37,7 @@ class Text extends AbstractAttribute
     }
 
     /**
-     *
-     * @param string $value
+     * {@inheritDoc}
      */
     public function setValue($value)
     {

@@ -2,17 +2,18 @@
 
 namespace Zoop\Product\DataModel\Option;
 
+use Zoop\Product\DataModel\Option\OptionInterface;
 //Annotation imports
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zoop\Shard\Annotation\Annotations as Shard;
 
 /**
- * @ODM\EmbeddedDocument 
+ * @ODM\EmbeddedDocument
  * @Shard\AccessControl({
  *      @Shard\Permission\Basic(roles="*", allow="*")
  * })
  */
-abstract class AbstractOption
+abstract class AbstractOption implements OptionInterface
 {
     /**
      * @ODM\Id(strategy="NONE")
@@ -44,8 +45,7 @@ abstract class AbstractOption
     protected $helpMessage;
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -53,8 +53,7 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @param string $id
+     * {@inheritDoc}
      */
     public function setId($id)
     {
@@ -62,8 +61,7 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -71,8 +69,7 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @param string $name
+     * {@inheritDoc}
      */
     public function setName($name)
     {
@@ -80,8 +77,7 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getHelpMessage()
     {
@@ -89,8 +85,7 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @param string $helpMessage
+     * {@inheritDoc}
      */
     public function setHelpMessage($helpMessage)
     {
@@ -98,17 +93,15 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getIsSkuSelector()
+    public function isSkuSelector()
     {
         return $this->isSkuSelector;
     }
 
     /**
-     *
-     * @param boolean $isSkuSelector
+     * {@inheritDoc}
      */
     public function setIsSkuSelector($isSkuSelector)
     {
@@ -116,17 +109,15 @@ abstract class AbstractOption
     }
 
     /**
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
-    public function getIsRequired()
+    public function isRequired()
     {
         return $this->isRequired;
     }
 
     /**
-     *
-     * @param boolean $isRequired
+     * {@inheritDoc}
      */
     public function setIsRequired($isRequired)
     {
