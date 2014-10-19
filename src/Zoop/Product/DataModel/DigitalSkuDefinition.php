@@ -20,7 +20,7 @@ class DigitalSkuDefinition extends AbstractSkuDefinition implements
     SkuDefinitionInterface
 {
     /**
-     * @ODM\ReferenceOne(targetDocument="\Zoop\Common\File\DataModel\File")
+     * @ODM\ReferenceOne(targetDocument="Zoop\Common\File\DataModel\File")
      * @Shard\Serializer\Eager
      */
     protected $file;

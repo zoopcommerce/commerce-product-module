@@ -15,14 +15,19 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\Document
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow="read"),
+ *     @Shard\Permission\Basic(roles="zoop::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="partner::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="company::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="store::admin", allow={"update::*"}),
+ *     @Shard\Permission\Transition(roles={"zoop::admin", "partner::admin", "company::admin", "store::admin"})
  * })
  */
 class SingleProduct extends AbstractProduct implements
     SingleProductInterface
 {
     /**
-     * @ODM\EmbedOne(targetDocument="EmbeddedBrand")
+     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\EmbeddedBrand")
      */
     protected $brand;
 
@@ -31,11 +36,11 @@ class SingleProduct extends AbstractProduct implements
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "Dropdown"       = "\Zoop\Product\DataModel\Option\Dropdown",
-     *         "FileUpload"     = "\Zoop\Product\DataModel\Option\FileUpload",
-     *         "Radio"          = "\Zoop\Product\DataModel\Option\Radio",
-     *         "Text"           = "\Zoop\Product\DataModel\Option\Text",
-     *         "Hidden"         = "\Zoop\Product\DataModel\Option\Hidden"
+     *         "Dropdown"       = "Zoop\Product\DataModel\Option\Dropdown",
+     *         "FileUpload"     = "Zoop\Product\DataModel\Option\FileUpload",
+     *         "Radio"          = "Zoop\Product\DataModel\Option\Radio",
+     *         "Text"           = "Zoop\Product\DataModel\Option\Text",
+     *         "Hidden"         = "Zoop\Product\DataModel\Option\Hidden"
      *     }
      * )
      */
@@ -46,9 +51,9 @@ class SingleProduct extends AbstractProduct implements
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "File"   = "\Zoop\Product\DataModel\Attribute\File",
-     *         "Number" = "\Zoop\Product\DataModel\Attribute\Number",
-     *         "Text"   = "\Zoop\Product\DataModel\Attribute\Text"
+     *         "File"   = "Zoop\Product\DataModel\Attribute\File",
+     *         "Number" = "Zoop\Product\DataModel\Attribute\Number",
+     *         "Text"   = "Zoop\Product\DataModel\Attribute\Text"
      *     }
      * )
      */
@@ -56,17 +61,17 @@ class SingleProduct extends AbstractProduct implements
 
     /**
      *
-     * @ODM\String
+     * @ODM\Boolean
      */
-    protected $isNotForIndividualSale;
+    protected $isNotForIndividualSale = false;
 
     /**
      * @ODM\EmbedMany(
      *     strategy = "set",
      *     discriminatorField = "type",
      *     discriminatorMap = {
-     *         "Physical"  = "\Zoop\Product\DataModel\PhysicalSkuDefinition",
-     *         "Digital"   = "\Zoop\Product\DataModel\DigitalSkuDefinition"
+     *         "Physical"  = "Zoop\Product\DataModel\PhysicalSkuDefinition",
+     *         "Digital"   = "Zoop\Product\DataModel\DigitalSkuDefinition"
      *     }
      * )
      */

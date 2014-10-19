@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2a677fec64f97431a6b8562e24606eb0",
+    "hash": "28a36cc6773b91528ef195e74aaeda30",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1774,12 +1774,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-public-apis-module.git",
-                "reference": "cdc9131534a834d8c5d23678dca793c7afe6b34c"
+                "reference": "946a080db501600d4087464c2e8865d8832c3715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-apis-module/zipball/cdc9131534a834d8c5d23678dca793c7afe6b34c",
-                "reference": "cdc9131534a834d8c5d23678dca793c7afe6b34c",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-public-apis-module/zipball/946a080db501600d4087464c2e8865d8832c3715",
+                "reference": "946a080db501600d4087464c2e8865d8832c3715",
                 "shasum": ""
             },
             "require": {
@@ -1820,7 +1820,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-public-apis-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-public-apis-module/issues"
             },
-            "time": "2014-10-19 03:50:32"
+            "time": "2014-10-19 06:19:59"
         },
         {
             "name": "zoopcommerce/common",
@@ -3437,17 +3437,95 @@
             "time": "2014-10-18 05:15:48"
         },
         {
+            "name": "zoopcommerce/commerce-collection-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:zoopcommerce/commerce-collection-module.git",
+                "reference": "523b2eb3a0f37349e2cfe5fa0697bc51abe9d26a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-collection-module/zipball/523b2eb3a0f37349e2cfe5fa0697bc51abe9d26a",
+                "reference": "523b2eb3a0f37349e2cfe5fa0697bc51abe9d26a",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "2.*",
+                "codeguy/upload": "dev-master#ff376306aacbd1005c7739dc171fae4edd96d8b7",
+                "doctrine/annotations": "dev-master#a11349d39d85bef75a71bd69bd604ac4fb993f03 as dev-master",
+                "doctrine/doctrine-module": "1.0.x-dev as 1.0",
+                "doctrine/doctrine-mongo-odm-module": "1.0.x-dev",
+                "doctrine/mongodb-odm": "dev-hotfix719 as 1.0.0-BETA9",
+                "doctrine/orm": "2.4.0-RC2",
+                "dompdf/dompdf": "dev-master#03ad3265797a338dce2d7064edd0cb4ebedb052b as dev-master",
+                "ezyang/htmlpurifier": "v4.5.0",
+                "imagine/imagine": "~0.6",
+                "mashape/unirest-php": "~1.2",
+                "melihucar/ftpclient": "dev-master#faab472b1f3118d4926b3cbfc7d21c9cba255c0f as dev-master",
+                "php": ">=5.4",
+                "sendgrid/sendgrid": "~2.1",
+                "willdurand/geocoder": "2.4.*",
+                "zendframework/zendframework": "2.3.1",
+                "zoopcommerce/commerce-public-apis-module": "dev-master",
+                "zoopcommerce/gateway-module": "~2.0",
+                "zoopcommerce/shard-module": "~4.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "2.*",
+                "phpunit/phpunit": ">=3.7",
+                "squizlabs/php_codesniffer": "1.4.*",
+                "zoopcommerce/commerce-api-module": "dev-master",
+                "zoopcommerce/commerce-common-module": "dev-master",
+                "zoopcommerce/commerce-store-module": "dev-master",
+                "zoopcommerce/commerce-test-data-module": "dev-master",
+                "zoopcommerce/commerce-user-module": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Zoop\\Collection": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Josh Stuart",
+                    "email": "josh.stuart@zoopcommerce.com"
+                },
+                {
+                    "name": "Tim Roediger",
+                    "email": "superdweebie@gmail.com"
+                }
+            ],
+            "description": "Commerce - Collection Module",
+            "homepage": "http://zoopcommerce.com",
+            "keywords": [
+                "commerce",
+                "doctrine",
+                "mongo",
+                "shard",
+                "zf2",
+                "zoop",
+                "zoop"
+            ],
+            "support": {
+                "source": "https://github.com/zoopcommerce/commerce-collection-module/tree/master",
+                "issues": "https://github.com/zoopcommerce/commerce-collection-module/issues"
+            },
+            "time": "2014-10-19 06:42:15"
+        },
+        {
             "name": "zoopcommerce/commerce-common-module",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-common-module.git",
-                "reference": "5650f3a394d20b61bab61372bb6aa6dd87a336b2"
+                "reference": "75e7484c3728f938c6aaf034766c3b5077a1339e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/5650f3a394d20b61bab61372bb6aa6dd87a336b2",
-                "reference": "5650f3a394d20b61bab61372bb6aa6dd87a336b2",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-common-module/zipball/75e7484c3728f938c6aaf034766c3b5077a1339e",
+                "reference": "75e7484c3728f938c6aaf034766c3b5077a1339e",
                 "shasum": ""
             },
             "require": {
@@ -3506,7 +3584,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-common-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-common-module/issues"
             },
-            "time": "2014-10-18 06:20:53"
+            "time": "2014-10-19 05:36:36"
         },
         {
             "name": "zoopcommerce/commerce-store-module",
@@ -3642,12 +3720,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:zoopcommerce/commerce-user-module.git",
-                "reference": "3d1ccde4b0ce19cad3f8f7bdab69b9ab1c5a2bea"
+                "reference": "665bbc29b9ae7ff927d16f5ca56a2f1d319abd34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoopcommerce/commerce-user-module/zipball/3d1ccde4b0ce19cad3f8f7bdab69b9ab1c5a2bea",
-                "reference": "3d1ccde4b0ce19cad3f8f7bdab69b9ab1c5a2bea",
+                "url": "https://api.github.com/repos/zoopcommerce/commerce-user-module/zipball/665bbc29b9ae7ff927d16f5ca56a2f1d319abd34",
+                "reference": "665bbc29b9ae7ff927d16f5ca56a2f1d319abd34",
                 "shasum": ""
             },
             "require": {
@@ -3709,7 +3787,7 @@
                 "source": "https://github.com/zoopcommerce/commerce-user-module/tree/master",
                 "issues": "https://github.com/zoopcommerce/commerce-user-module/issues"
             },
-            "time": "2014-10-18 06:01:01"
+            "time": "2014-10-19 05:45:44"
         }
     ],
     "aliases": [
@@ -3757,6 +3835,7 @@
         "zoopcommerce/commerce-public-apis-module": 20,
         "zoopcommerce/commerce-test-data-module": 20,
         "zoopcommerce/commerce-api-module": 20,
+        "zoopcommerce/commerce-collection-module": 20,
         "zoopcommerce/commerce-common-module": 20,
         "zoopcommerce/commerce-store-module": 20,
         "zoopcommerce/commerce-user-module": 20

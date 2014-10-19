@@ -27,7 +27,7 @@ abstract class AbstractSkuDefinition
     protected $optionMap;
 
     /**
-     * @ODM\EmbedOne(targetDocument="\Zoop\Product\DataModel\PriceAdjustment")
+     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\PriceAdjustment")
      */
     protected $priceAdjustment;
 

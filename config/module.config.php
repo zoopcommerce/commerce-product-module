@@ -22,7 +22,14 @@ return [
                         'class' => 'Zoop\Product\DataModel\AbstractProduct',
                         'property' => 'id',
                         'listeners' => [
-                            'create' => [],
+                            'create' => [
+                                'zoop.shardmodule.listener.unserialize',
+                                'zoop.api.listener.cors',
+                                'zoop.shardmodule.listener.create',
+                                'zoop.shardmodule.listener.flush',
+                                'zoop.shardmodule.listener.location',
+                                'zoop.shardmodule.listener.prepareviewmodel'
+                            ],
                             'delete' => [
                                 'zoop.shardmodule.listener.delete',
                                 'zoop.api.listener.cors',

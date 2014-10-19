@@ -29,10 +29,12 @@ use Zoop\Shard\Annotation\Annotations as Shard;
  *     "Bundle"         = "Bundle"
  * })
  * @Shard\AccessControl({
- *      @Shard\Permission\Basic(roles="*", allow="*"),
- *      @Shard\Permission\Transition(
- *         roles="*"
- *     )
+ *     @Shard\Permission\Basic(roles="*", allow="read"),
+ *     @Shard\Permission\Basic(roles="zoop::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="partner::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="company::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="store::admin", allow={"update::*"}),
+ *     @Shard\Permission\Transition(roles={"zoop::admin", "partner::admin", "company::admin", "store::admin"})
  * })
  */
 abstract class AbstractProduct implements
@@ -93,7 +95,7 @@ abstract class AbstractProduct implements
 
     /**
      * @ODM\ReferenceMany(
-     *      targetDocument="Zoop\Collections\DataModel\AbstractCollections",
+     *      targetDocument="Zoop\Collection\DataModel\AbstractCollection",
      *      simple="true",
      *      inversedBy="products"
      *  )
@@ -109,7 +111,7 @@ abstract class AbstractProduct implements
 
     /**
      *
-     * @ODM\EmbedMany(targetDocument="ImageSet")
+     * @ODM\EmbedMany(targetDocument="Zoop\Product\DataModel\ImageSet")
      */
     protected $imageSets;
 
@@ -131,7 +133,7 @@ abstract class AbstractProduct implements
     protected $state = 'active';
 
     /**
-     * @ODM\EmbedOne(targetDocument="Price")
+     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\Price")
      * @Shard\Validator\Required
      */
     protected $price;

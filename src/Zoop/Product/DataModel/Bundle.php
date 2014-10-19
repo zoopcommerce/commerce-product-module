@@ -12,7 +12,12 @@ use Zoop\Shard\Annotation\Annotations as Shard;
 /**
  * @ODM\Document
  * @Shard\AccessControl({
- *     @Shard\Permission\Basic(roles="*", allow="*")
+ *     @Shard\Permission\Basic(roles="*", allow="read"),
+ *     @Shard\Permission\Basic(roles="zoop::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="partner::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="company::admin", allow={"create", "update::*", "delete"}),
+ *     @Shard\Permission\Basic(roles="store::admin", allow={"update::*"}),
+ *     @Shard\Permission\Transition(roles={"zoop::admin", "partner::admin", "company::admin", "store::admin"})
  * })
  */
 class Bundle extends AbstractProduct implements BundleInterface

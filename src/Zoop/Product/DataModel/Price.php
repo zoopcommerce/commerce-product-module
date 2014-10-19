@@ -31,12 +31,6 @@ class Price implements PriceInterface
     protected $wholesale;
 
     /**
-     * Dynamic field based on the sale/promotion price
-     * @var boolean
-     */
-    protected $saleActive;
-
-    /**
      * {@inheritDoc}
      */
     public function getFull()

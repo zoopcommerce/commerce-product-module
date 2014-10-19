@@ -24,17 +24,17 @@ class PhysicalSkuDefinition extends AbstractSkuDefinition implements
 {
     /**
      *
-     * @ODM\EmbedMany(targetDocument="\Zoop\Product\DataModel\ShippingRate")
+     * @ODM\EmbedMany(targetDocument="Zoop\Product\DataModel\ShippingRate")
      */
     protected $shippingRates;
 
     /**
-     * @ODM\EmbedOne(targetDocument="\Zoop\Product\DataModel\Dimensions")
+     * @ODM\EmbedOne(targetDocument="Zoop\Product\DataModel\Dimensions")
      */
     protected $dimensions;
 
     /**
-     * @ODM\EmbedMany(targetDocument="\Zoop\Product\DataModel\EmbeddedSupplier")
+     * @ODM\EmbedMany(targetDocument="Zoop\Product\DataModel\EmbeddedSupplier")
      */
     protected $suppliers;
 
